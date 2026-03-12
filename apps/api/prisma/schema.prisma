@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  owner
+  admin
+  agent
+  staff
+}
+
+model Tenant {
+  id              String             @id @default(cuid())
+  name            String
+  slug            String             @unique
+  plan            String
+  status          String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  users           User[]
+  products        Product[]
+  orders          Order[]
+  customers       Customer[]
+  conversations   Conversation[]
+  automationFlows AutomationFlow[]
+  bookings        Booking[]
+  shipments       Shipment[]
+  subscriptions   Subscription[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  tenantId     String
+  email        String   @unique
+  fullName     String
+  passwordHash String
+  role         UserRole
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  sku         String
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int      @default(0)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@unique([tenantId, sku])
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  tenantId      String
+  customerId    String
+  status        String
+  total         Decimal  @db.Decimal(10, 2)
+  paymentStatus String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  tenant        Tenant   @relation(fields: [tenantId], references: [id])
+  customer      Customer @relation(fields: [customerId], references: [id])
+
+  @@index([tenantId])
+}
+
+model Customer {
+  id            String         @id @default(cuid())
+  tenantId      String
+  name          String
+  email         String?
+  phone         String?
+  tags          String[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  orders        Order[]
+  conversations Conversation[]
+  bookings      Booking[]
+
+  @@index([tenantId])
+}
+
+model Conversation {
+  id             String    @id @default(cuid())
+  tenantId       String
+  channel        String
+  customerId     String
+  assignedUserId String?
+  status         String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  customer       Customer  @relation(fields: [customerId], references: [id])
+  messages       Message[]
+
+  @@index([tenantId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  direction      String
+  body           String
+  sentAt         DateTime
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  @@index([conversationId])
+}
+
+model AutomationFlow {
+  id        String           @id @default(cuid())
+  tenantId  String
+  name      String
+  status    String
+  version   Int              @default(1)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  tenant    Tenant           @relation(fields: [tenantId], references: [id])
+  nodes     AutomationNode[]
+
+  @@index([tenantId])
+}
+
+model AutomationNode {
+  id         String         @id @default(cuid())
+  flowId     String
+  type       String
+  configJson Json
+  positionX  Int            @default(0)
+  positionY  Int            @default(0)
+  createdAt  DateTime       @default(now())
+  flow       AutomationFlow @relation(fields: [flowId], references: [id])
+
+  @@index([flowId])
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  tenantId   String
+  serviceId  String
+  customerId String
+  startAt    DateTime
+  status     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  @@index([tenantId])
+}
+
+model Shipment {
+  id             String   @id @default(cuid())
+  tenantId       String
+  orderId        String
+  provider       String
+  trackingNumber String?
+  status         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  tenantId    String
+  orderId     String
+  provider    String
+  amount      Decimal  @db.Decimal(10, 2)
+  currency    String
+  status      String
+  externalRef String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Subscription {
+  id               String   @id @default(cuid())
+  tenantId         String
+  plan             String
+  billingStatus    String
+  currentPeriodEnd DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  tenant           Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+}

@@ -1,0 +1,41 @@
+# Project Folder Structure
+
+```txt
+heven-os/
+  apps/
+    api/
+      prisma/
+      src/
+        modules/
+          auth/
+          tenants/
+          users/
+          commerce/
+          crm/
+          inbox/
+          automation/
+          bookings/
+          shipping/
+          analytics/
+          admin/
+        common/
+        infra/
+        config/
+    web/
+      app/
+        (dashboard)/
+          dashboard/
+          store/
+          inbox/
+          customers/
+          automations/
+          bookings/
+          shipping/
+          analytics/
+          settings/
+      components/
+      lib/
+      types/
+  docs/
+  package.json
+```
