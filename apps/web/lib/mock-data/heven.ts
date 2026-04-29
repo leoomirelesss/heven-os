@@ -54,12 +54,30 @@ export const automations = [
   { id: 'A-3', name: 'First purchase nurture', status: 'Inactive', trigger: 'Order completed', conversionLift: '+5%' },
 ];
 
+export const bookings = [
+  { id: 'B-901', date: '2026-04-29', time: '10:00', customer: 'Sarah Johnson', service: 'Consultation', status: 'Confirmed' },
+  { id: 'B-902', date: '2026-04-29', time: '13:30', customer: 'Diego Ramírez', service: 'Custom design', status: 'Pending' },
+  { id: 'B-903', date: '2026-04-30', time: '15:00', customer: 'Camila Ortega', service: 'Pickup', status: 'Confirmed' },
+];
+
+export const shipments = [
+  { id: 'SHP-0041', order: '#8472', carrier: 'FedEx', status: 'Delivered', tracking: 'FDX-MX-938211' },
+  { id: 'SHP-0040', order: '#8471', carrier: 'UPS', status: 'In Transit', tracking: 'UPS-MX-112903' },
+  { id: 'SHP-0039', order: '#8470', carrier: 'DHL', status: 'Processing', tracking: 'DHL-MX-819221' },
+];
+
 export const trafficSources = [
   { source: 'Instagram Ads', share: '38%' },
   { source: 'Organic Search', share: '26%' },
   { source: 'WhatsApp', share: '19%' },
   { source: 'Referrals', share: '11%' },
   { source: 'Email', share: '6%' },
+];
+
+export const integrationSettings = [
+  { name: 'WhatsApp Cloud API', status: 'Connected' },
+  { name: 'Meta Ads', status: 'Connected' },
+  { name: 'Google Analytics', status: 'Needs auth' },
 ];
 
 export const generationSteps = [

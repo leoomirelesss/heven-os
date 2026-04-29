@@ -1,0 +1,1 @@
+export default function Page(){return <div className='min-h-screen bg-surface p-8'><div className='max-w-xl mx-auto border border-white/10 rounded p-6'><h1 className='text-2xl font-semibold'>Checkout Demo</h1><p className='text-muted'>Mock Stripe checkout completed successfully.</p></div></div>}

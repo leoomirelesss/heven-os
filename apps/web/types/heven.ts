@@ -1,0 +1,14 @@
+export type Plan = 'Starter' | 'Growth' | 'Business' | 'Enterprise';
+export type User = { id: string; name: string; email: string };
+export type Workspace = { id: string; name: string; slug: string; plan: Plan };
+export type Project = { id: string; name: string; type: string; status: string; plan: Plan; lastEdited: string; monthlyRevenue: string; websiteStatus: string };
+export type Page = { id: string; title: string; slug: string; status: 'Draft' | 'Published'; lastEdited: string; seoScore: number };
+export type Section = { id: string; name: string; content: string };
+export type Product = { id: string; name: string; description?: string; price: string; stock: number; status: string; image?: string; category: string };
+export type Customer = { id: string; name: string; email: string; status: string; ltv: string; tags: string[]; phone?: string; notes?: string };
+export type Order = { id: string; customer: string; total: string; status: string; date: string };
+export type Automation = { id: string; name: string; status: string; trigger: string };
+export type Template = { id: string; name: string; industry: string; recommendedFor: string };
+export type Subscription = { plan: Plan; status: string; renewsAt: string; usage: { products: number; contacts: number } };
+export type Integration = { name: string; status: 'Connected' | 'Disconnected' | 'Needs auth' };
+export type AnalyticsMetric = { label: string; value: string; delta: string };
