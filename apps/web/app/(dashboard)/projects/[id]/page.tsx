@@ -1,0 +1,1 @@
+export default function Page({params}:{params:{id:string}}){return <div><h2 className='text-2xl font-semibold'>Project {params.id}</h2><p className='text-muted'>Workspace overview, KPIs, and actions.</p></div>}

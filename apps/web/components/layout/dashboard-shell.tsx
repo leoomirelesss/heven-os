@@ -7,13 +7,20 @@ import { cn } from '../../lib/utils';
 
 const nav = [
   ['Dashboard', '/dashboard'],
+  ['Projects', '/projects'],
   ['Store', '/store'],
+  ['Products', '/products'],
+  ['Pages', '/pages'],
+  ['Content', '/content'],
+  ['Templates', '/templates'],
+  ['Editor', '/editor'],
   ['Customers', '/customers'],
   ['Inbox', '/inbox'],
   ['Automations', '/automations'],
   ['Bookings', '/bookings'],
   ['Shipping', '/shipping'],
   ['Analytics', '/analytics'],
+  ['Billing', '/billing'],
   ['Settings', '/settings'],
 ];
 

@@ -1,0 +1,2 @@
+'use client';import { createCheckoutSession } from '../../../lib/billing';
+export default function Page(){return <div className='space-y-4'><h2 className='text-2xl font-semibold'>Billing</h2><p className='text-muted'>Current plan: Growth • Active</p><button onClick={async()=>{const s=await createCheckoutSession('Business');window.location.href=s.url}} className='bg-white text-black px-3 py-2 rounded'>Upgrade plan</button></div>}

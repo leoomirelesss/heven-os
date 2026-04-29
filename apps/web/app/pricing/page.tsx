@@ -1,0 +1,3 @@
+import Link from 'next/link';
+const plans=[['Starter','$29/mo'],['Growth','$49/mo'],['Business','$79/mo'],['Enterprise','Custom']];
+export default function Pricing(){return <div className='min-h-screen bg-surface p-8'><div className='mx-auto max-w-5xl'><h1 className='text-4xl font-semibold mb-6'>Pricing</h1><div className='grid md:grid-cols-4 gap-4'>{plans.map(([n,p])=><div key={n} className='border border-white/10 bg-panel rounded-xl p-4'><p className='text-xl font-medium'>{n}</p><p className='text-muted'>{p}</p><Link href='/register' className='mt-4 inline-block border border-white/20 px-3 py-1 rounded'>Choose plan</Link></div>)}</div></div></div>}

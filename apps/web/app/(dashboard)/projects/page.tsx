@@ -1,0 +1,3 @@
+import Link from 'next/link';
+const projects=[{id:'proj-luna',name:'Luna Jewelry MX',type:'Ecommerce',status:'Live',plan:'Growth',last:'2026-04-28',rev:'$148k',site:'Published'}];
+export default function Page(){return <div><h2 className='text-2xl font-semibold mb-4'>Projects</h2>{projects.map(p=><div key={p.id} className='border border-white/10 rounded p-4 mb-3'><p>{p.name} • {p.type} • {p.plan}</p><div className='flex gap-2 mt-2'><Link href={`/projects/${p.id}`} className='border border-white/20 px-3 py-1 rounded'>Open</Link><Link href='/editor' className='border border-white/20 px-3 py-1 rounded'>Edit website</Link></div></div>)}</div>}
